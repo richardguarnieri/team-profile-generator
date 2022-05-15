@@ -1,0 +1,26 @@
+{
+  "name": "team-profile-generator",
+  "version": "1.0.0",
+  "description": "Team Profile Generator via Node.js and HTML",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/richardguarnieri/team-profile-generator.git"
+  },
+  "keywords": [],
+  "author": "Richard Guarnieri",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/richardguarnieri/team-profile-generator/issues"
+  },
+  "homepage": "https://github.com/richardguarnieri/team-profile-generator#readme",
+  "dependencies": {
+    "inquirer": "^8.2.4"
+  },
+  "devDependencies": {
+    "jest": "^28.1.0"
+  }
+}
