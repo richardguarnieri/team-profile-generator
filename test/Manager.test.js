@@ -1,3 +1,4 @@
+const Employee = require('../lib/Employee')
 const Manager = require('../lib/Manager')
 
 describe('Manager', () => {
@@ -33,7 +34,7 @@ describe('Manager', () => {
             // Exception Test # 2
             it("Should throw an error if provided an empty 'string' value", () => {
                 // Arrange
-                const cb = () => new Employee('richard', 31, '@example.com', ' ')
+                const cb = () => new Manager('richard', 31, '@example.com', ' ')
                 const err = new Error("Expected parameter 'officeNumber' to be a non-empty string");
                 // Assert
                 expect(cb).toThrowError(err);
