@@ -5,19 +5,9 @@ const { setTimeout: setTimeoutPromise } = require('timers/promises');
 const inquirer = require('inquirer');
 
 // Import Classes
-const Employee = require('./lib/Employee');
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
-
-// Import HTML Template and Generators
-const generateManager = require('./src/generateManager');
-const generateEngineer = require('./src/generateEngineer');
-const generateIntern = require('./src/generateIntern');
-
-let managerHTML;
-let engineerHTML;
-let internHTML;
 
 // Manager questions to user during inquirer.prompt()
 const questionsManager = [
@@ -50,10 +40,20 @@ const choices = [
     "3) I'm done! don't want to add anyone else!"
 ];
 
-// Empty arrays to store objects from each manager / engineer / intern function - will be accessed to create the HTML page
+// Empty arrays to store objects from each manager / engineer / intern function - keeps count of # of employees
 let managers = [];
 let engineers = [];
 let interns = [];
+
+// Import HTML Template and Generators
+const generateManager = require('./src/generateManager');
+const generateEngineer = require('./src/generateEngineer');
+const generateIntern = require('./src/generateIntern');
+
+// Empty arrays to store the generated HTML for each manager / engineer / intern function - will be accessed to create the HTML page
+let managerHTML = [];
+let engineerHTML = [];
+let internHTML = [];
 
 // Utility Validation Function: checks whether the input is a "non-empty string"
 const stringValidation = (answer) => {
@@ -122,12 +122,8 @@ const createManager = async () => {
     const { name, id, email, officeNumber } = managerResult;
     // Create new instance of Manager using destructured variables - Number(id) is to parse the string 'id' value to a number to avoid validation during instance creation
     const manager = new Manager(name, Number(id), email, officeNumber);
-    // Checks if managerHTML is nullish (null or undefined) - if nullish do not concatenate otherwise it'd be undefined + concatenated value
-    if (managerHTML) {
-        managerHTML += generateManager(manager);  
-    } else {
-        managerHTML = generateManager(manager);
-    }
+    // Generates HTML for this object
+    managerHTML += generateManager(manager);  
     // Push new Object to managers array
     managers.push(manager)
     await setTimeoutPromise(2_000);
@@ -197,12 +193,8 @@ const createEngineer = async () => {
     const { name, id, email, github } = engineerResult;
     // Create new instance of Engineer using destructured variables - Number(id) is to parse the string 'id' value to a number to avoid validation during instance creation
     const engineer = new Engineer(name, Number(id), email, github);
-    // Checks if engineerHTML is nullish (null or undefined) - if nullish do not concatenate otherwise it'd be undefined + concatenated value
-    if (engineerHTML) {
-        engineerHTML += generateEngineer(engineer);  
-    } else {
-        engineerHTML = generateEngineer(engineer);
-    }
+    // Generates HTML for this object
+    engineerHTML += generateEngineer(engineer);  
     // Push new Object to managers array
     engineers.push(engineer)
     await setTimeoutPromise(2_000);
@@ -244,12 +236,8 @@ const createIntern = async () => {
     const { name, id, email, school } = internResult;
     // Create new instance of Intern using destructured variables - Number(id) is to parse the string 'id' value to a number to avoid validation during instance creation
     const intern = new Intern(name, Number(id), email, school);
-    // Checks if internHTML is nullish (null or undefined) - if nullish do not concatenate otherwise it'd be undefined + concatenated value
-    if (internHTML) {
-        internHTML += generateIntern(intern);  
-    } else {
-        internHTML = generateIntern(intern);
-    }
+    // Generates HTML for this object
+    internHTML += generateIntern(intern);  
     // Push new Object to managers array
     interns.push(intern)
     await setTimeoutPromise(2_000);
