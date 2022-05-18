@@ -13,13 +13,11 @@ const Intern = require('./lib/Intern');
 // Import HTML Template and Generators
 const generateManager = require('./src/generateManager');
 const generateEngineer = require('./src/generateEngineer');
-
-
-
+const generateIntern = require('./src/generateIntern');
 
 let managerHTML;
 let engineerHTML;
-
+let internHTML;
 
 // Manager questions to user during inquirer.prompt()
 const questionsManager = [
@@ -120,19 +118,22 @@ const createManager = async () => {
             validate: stringValidation
         },
     ])
+    // Object destructuring of "managerResult"
     const { name, id, email, officeNumber } = managerResult;
+    // Create new instance of Manager using destructured variables - Number(id) is to parse the string 'id' value to a number to avoid validation during instance creation
     const manager = new Manager(name, Number(id), email, officeNumber);
-    // Checks if managerHTML is nullish (null or undefined)
+    // Checks if managerHTML is nullish (null or undefined) - if nullish do not concatenate otherwise it'd be undefined + concatenated value
     if (managerHTML) {
         managerHTML += generateManager(manager);  
     } else {
         managerHTML = generateManager(manager);
     }
+    // Push new Object to managers array
     managers.push(manager)
     await setTimeoutPromise(2_000);
     console.log(`\nGreat work! The manager "${manager.name}" has been created! You now have ${managers.length} manager(s)!\n`);
-    console.log(managers)
-    console.log(managerHTML)
+    // console.log(managers)
+    // console.log(managerHTML)
 }
 
 // Function to select whether the user wants to create engineers / interns or quit the app
@@ -192,19 +193,22 @@ const createEngineer = async () => {
             validate: stringValidation
         },
     ])
+    // Object destructuring of "engineerResult"
     const { name, id, email, github } = engineerResult;
+    // Create new instance of Engineer using destructured variables - Number(id) is to parse the string 'id' value to a number to avoid validation during instance creation
     const engineer = new Engineer(name, Number(id), email, github);
-    // Checks if engineerHTML is nullish (null or undefined)
+    // Checks if engineerHTML is nullish (null or undefined) - if nullish do not concatenate otherwise it'd be undefined + concatenated value
     if (engineerHTML) {
         engineerHTML += generateEngineer(engineer);  
     } else {
         engineerHTML = generateEngineer(engineer);
     }
+    // Push new Object to managers array
     engineers.push(engineer)
     await setTimeoutPromise(2_000);
-    console.log(`\nGreat work! The engineer "${engineerResult.engineerName}" has been created! You now have ${engineers.length} engineer(s)!\n`);
-    console.log(engineers)
-    console.log(engineerHTML)
+    console.log(`\nGreat work! The engineer "${engineer.name}" has been created! You now have ${engineers.length} engineer(s)!\n`);
+    // console.log(engineers)
+    // console.log(engineerHTML)
     choice();
 }
 
@@ -213,33 +217,45 @@ const createIntern = async () => {
     const internResult = await inquirer.prompt([
         {
             type: 'input',
-            name: 'internName',
+            name: 'name',
             message: questionsIntern[0],
             validate: stringValidation
         },
         {
             type: 'input',
-            name: 'internId',
+            name: 'id',
             message: questionsIntern[1],
             validate: numberValidation
         },
         {
             type: 'input',
-            name: 'internEmail',
+            name: 'email',
             message: questionsIntern[2],
             validate: stringValidation 
         },
         {
             type: 'input',
-            name: 'internGithub',
+            name: 'school',
             message: questionsIntern[3],
             validate: stringValidation
         },
     ])
+    // Object destructuring of "internResult"
+    const { name, id, email, school } = internResult;
+    // Create new instance of Intern using destructured variables - Number(id) is to parse the string 'id' value to a number to avoid validation during instance creation
+    const intern = new Intern(name, Number(id), email, school);
+    // Checks if internHTML is nullish (null or undefined) - if nullish do not concatenate otherwise it'd be undefined + concatenated value
+    if (internHTML) {
+        internHTML += generateIntern(intern);  
+    } else {
+        internHTML = generateIntern(intern);
+    }
+    // Push new Object to managers array
+    interns.push(intern)
     await setTimeoutPromise(2_000);
-    interns.push(internResult);
-    console.log(`\nGreat work! The intern "${internResult.internName}" has been created! You now have ${interns.length} intern(s)!\n`);
-    console.log(interns)
+    console.log(`\nGreat work! The intern "${intern.name}" has been created! You now have ${interns.length} intern(s)!\n`);
+    // console.log(interns)
+    // console.log(internHTML)
     choice();
 }
 
