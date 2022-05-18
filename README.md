@@ -75,8 +75,6 @@ Project Description: `Team Profile Generator via Node.js and HTML`
 
 <!-- Table of Contents -->
 ## Table of Contents
-If your README is long, you may choose to use this table of contents to make it easy for users to find what they need.
-
 * [The Project](#the-project)
     * [Technology Stack](#technology-stack)
 * [Getting Started](#getting-started)
@@ -86,8 +84,6 @@ If your README is long, you may choose to use this table of contents to make it 
 * [Contributing](#contributing)
 * [License](#license)
 * [Contact](#contact)
-* [Credits and Acknowledgments](#credits-and-acknowledgments)
-* [Features](#features)
 * [Tests](#tests)
 * [Miscellaneous](#miscellaneous)
     * [User Story](#user-story)
@@ -100,12 +96,9 @@ If your README is long, you may choose to use this table of contents to make it 
 
 [![Application Image][application-image]][application-url]
 
-Use this section to provide a short description explaining the what, why, and how of your project. Use the following questions as a guide:
+This is a Node.js command-line application that takes in information about employees, then generates an HTML webpage that displays summaries for each person. 
 
-- What was your motivation?
-- Why did you build this project? (Note: the answer should **never** be "because it was a homework assignment!")
-- What problem does it solve?
-- What did you learn?
+It was built using TDD (Test Driven Development), which is a software development practice that focuses on creating unit test cases before developing the actual code.
 
 <p align="right"> - <a href="#home">Return to Home</a></p>
 
@@ -113,42 +106,108 @@ Use this section to provide a short description explaining the what, why, and ho
 Use this section to list the technologies used in the project - examples:
 
 * [HTML](https://html.spec.whatwg.org/)
-* [CSS](https://www.w3.org/TR/CSS/#css)
 * [JavaScript](https://www.ecma-international.org/publications-and-standards/standards/ecma-262/)
-* [SASS](https://sass-lang.com/)
 * [Tailwind CSS](https://tailwindcss.com/)
 * [Node.js](https://nodejs.org/en/)
-* [React.js](https://reactjs.org/)
+* [inquirer](https://www.npmjs.com/package/inquirer)
+* [jest](https://jestjs.io/)
+
 
 <p align="right"> - <a href="#home">Return to Home</a></p>
 
 
 <!-- Getting Started -->
 ## Getting Started
-Use this section to explain how to get the application started - this includes the prerequisites and the installation sections. Feel free to add more sections as needed such as testing, deployment, etc.
+To get started you will need a couple of things - clear explanation of this below:
 
 <p align="right"> - <a href="#home">Return to Home</a></p>
 
 ### Prerequisites
-Use this section to list the prerequisites to run the application.
+[Node.js](https://nodejs.org/en/) as we will need it to install the [inquirer](https://www.npmjs.com/package/inquirer) NPM package to execute the application and [jest](https://jestjs.io/) NPM package to confirm tests are passed.
+
+The application will run on the command-line, meaning this will be the only requirement.
 
 <p align="right"> - <a href="#home">Return to Home</a></p>
 
 ### Installation
-Use this section to describe what are the steps required to install your project. Provide a step-by-step description of how to get the development environment running.
+In order to get started, we must first install Node.js - on macOS I prefer to install it using the Homebrew package manager and on Windows using the Node.js homepage download section.
+
+**On macOS:**
+1. To install Homebrew on macOS, browse to [Homebrew's official website](https://brew.sh/) and copy the link displayed on the page on the macOS terminal. At the time of writing, this is the command: 
+```shell
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+2. Once Homebrew installation is complete, type the following command to install Node.js and NPM:
+```shell
+brew install node
+```
+
+3. Once the installation finishes, confirm that you successfully installed Node.js by checking its version:
+```shell
+node -v
+```
+
+**On Windows:**
+1. In a web browser, navigate to https://nodejs.org/en/download/. Click the Windows Installer button to download the latest default version. At the time of writing, the latest LTS version is 16.15.0.
+
+2. Execute the installer to install Node.js
+
+3. Once the installation finishes, confirm that you successfully installed Node.js by checking its version:
+```shell
+node -v
+```
 
 <p align="right"> - <a href="#home">Return to Home</a></p>
 
 
 <!-- How to Use -->
 ## How to Use
-Use this section to provide instructions and examples for use. Include screenshots as needed.
+First, clone this repo via HTTPS in your local computer - feel free to use any storage destination / folder of your choosing. On macOS / Windows, open the CLI (Command Line Interface) and type the following command (ensure you are located in the exact directory where you want to clone the repo):
 
-To add a screenshot, create an `img` folder in your repository and upload your screenshot to it. Then, using the relative filepath, add it to your README using the following syntax:
-
-```md
-![alt text](assets/images/screenshot.png)
+```shell
+git clone https://github.com/richardguarnieri/team-profile-generator.git
 ```
+
+After the repo has sucessfully cloned, navigate to the repo using the cd (chage directory) command:
+```shell
+cd team-profile-generator/
+``` 
+
+Once inside the team-profile-generator directory, install the necessary node pacakges to run the application - in order to do so, pls type on the CLI the following command:
+```shell
+npm install
+```
+Above command will install [inquirer](https://www.npmjs.com/package/inquirer) and [jest](https://jestjs.io/) NPM packages along all its dependencies in a newly generated folder within the team-profile-generator directory called node_modules/
+
+Once installation finishes, we are clear to execute the application. To do so, run the index.js file typing in the CLI the following command:
+```shell
+npm start
+```
+
+After execution, the program will show a welcome message, including brief instructions. Quickly after, you will begin filling the manager's information.
+
+The manager has four questions, these are:
+1. Please enter the manager's name:
+2. Please enter the manager's employee id:
+3. Please enter the manager's email address:
+4. Please enter the manager's office number:
+
+After filling the manager's info, you will then have a choice to keep building the team either by choosing an engineer or intern, or simply quit the program - this is on-going and after each engineer / intern you add you are taken back to the menu with the choice to keep adding team members or to quit the program.
+
+The engineer has four questions, these are:
+1. Please enter the engineer's name:
+1. Please enter the engineer's employee id:
+1. Please enter the engineer's email address:
+1. Please enter the engineer's GitHub username:
+
+The intern has four questions, these are:
+1. Please enter the intern's name:
+1. Please enter the intern's employee id:
+1. Please enter the intern's email address:
+1. Please enter the intern's school:
+
+When you decide on quitting the program or when you finish building the team, an **index.html** file will be generated at /dist folder. Here you will find the generated webpage.
 
 _For more examples, please refer to the [Documentation][documentation-url]._
 
@@ -157,10 +216,6 @@ _For more examples, please refer to the [Documentation][documentation-url]._
 
 <!-- Contribuiting -->
 ## Contributing
-If you created an application or package and would like other developers to contribute it, you can include guidelines for how to do so. The [Contributor Covenant](https://www.contributor-covenant.org/) is an industry standard, but you can always write your own if you'd prefer.
-
-**Example of this README.md Contributing message:**
-
 Contributions are much welcomed! If you have suggestions to make this application better, please fork the repo and create a pull request. 
 
 You can also open an issue [here][github-issues-url] and tag it with the **"enhancement"** label.
@@ -170,10 +225,6 @@ You can also open an issue [here][github-issues-url] and tag it with the **"enha
 
 <!-- License -->
 ## License
-The last section of a high-quality README file is the license. This lets other developers know what they can and cannot do with your project. If you need help choosing a license, refer to [https://choosealicense.com/](https://choosealicense.com/).
-
-**Example of this README.md License message:**
-
 This project is licensed under the terms of the MIT license. 
 
 See `LICENSE` for more information.
@@ -185,40 +236,20 @@ See `LICENSE` for more information.
 ## Contact
 Richard Guarnieri: richard.gm@outlook.com · LinkedIn: [rguarnieri][linkedin-url] · Twitter: [@ric_guarnieri][twitter-url]
 
-Application URL: [https://example.com/][application-url]
-
-<p align="right"> - <a href="#home">Return to Home</a></p>
-
-
-<!-- Credits and Acknowledgments -->
-## Credits and Acknowledgments
-Use this section to list your collaborators, if any, with links to their GitHub profiles.
-
-If you used any third-party assets that require attribution, list the creators with links to their primary web presence in this section.
-
-If you followed tutorials, include links to those here as well.
-
-<p align="right"> - <a href="#home">Return to Home</a></p>
-
-
-<!-- Features -->
-## Features
-**Optional:** If your project has a lot of features, list them here.
 
 <p align="right"> - <a href="#home">Return to Home</a></p>
 
 
 <!-- Tests -->
 ## Tests
-**Optional:** Feel free to go the extra mile and write tests for your application. Then provide examples on how to run them here.
+Feel free to go the extra mile and write tests for your application. Then provide examples on how to run them here.
 
 <p align="right"> - <a href="#home">Return to Home</a></p>
 
 
 <!-- Miscellaneous -->
 ## Miscellaneous
-**Optional:** Use this section to disclose any miscellaneous information about the project.
-### User Story
+## User Story
 ```
 AS A manager
 I WANT to generate a webpage that displays my team's basic info
