@@ -8,6 +8,11 @@ const inquirer = require('inquirer');
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
+// Import HTML Generators from ./src for Main Page, Manager, Engineer and Intern
+const generateMainPage = require('./src/generateMainPage');
+const generateManager = require('./src/generateManager');
+const generateEngineer = require('./src/generateEngineer');
+const generateIntern = require('./src/generateIntern');
 
 // Manager questions to user during inquirer.prompt()
 const questionsManager = [
@@ -40,43 +45,6 @@ const choices = [
     "3) I'm done! don't want to add anyone else!"
 ];
 
-// Empty arrays to store objects from each manager / engineer / intern function - keeps count of # of employees and will be accessed to create the modular HTML segments
-let managers = [];
-let engineers = [];
-let interns = [];
-
-// Import HTML Generators for Main Page, Manager, Engineer and Intern
-const generateMainPage = require('./src/generateMainPage');
-const generateManager = require('./src/generateManager');
-const generateEngineer = require('./src/generateEngineer');
-const generateIntern = require('./src/generateIntern');
-
-const generateManagersHTML = (array) => {
-    let managersHTML = '';
-    array.forEach(element => {
-        const generatedHTML = generateManager(element);
-        managersHTML += generatedHTML;
-    })
-    return managersHTML;
-}
-
-const generateEngineersHTML = (array) => {
-    let engineersHTML = '';
-    array.forEach(element => {
-        const generatedHTML = generateEngineer(element);
-        engineersHTML += generatedHTML;
-    })
-    return engineersHTML;
-}
-const generateInternsHTML = (array) => {
-    let internsHTML = '';
-    array.forEach(element => {
-        const generatedHTML = generateIntern(element);
-        internsHTML += generatedHTML;
-    })
-    return internsHTML;
-}
-
 // Utility Validation Functions
 // "String" validation: checks whether the input is a "non-empty string"
 const stringValidation = (answer) => {
@@ -97,6 +65,49 @@ const numberValidation = (answer) => {
         return true
     }
 };
+
+// Empty arrays to store objects from each manager / engineer / intern function - keeps count of # of employees and will be accessed to create the modular HTML segments
+let managers = [];
+let engineers = [];
+let interns = [];
+
+// HTML Generator Functions
+// Generate the "Managers" section of the HTML using the "managers" array
+const generateManagersHTML = (array) => {
+    let managersHTML = '';
+    array.forEach(element => {
+        const generatedHTML = generateManager(element);
+        managersHTML += generatedHTML;
+    })
+    return managersHTML;
+}
+// Generate the "Engineers" section of the HTML using the "engineers" array
+const generateEngineersHTML = (array) => {
+    let engineersHTML = '';
+    array.forEach(element => {
+        const generatedHTML = generateEngineer(element);
+        engineersHTML += generatedHTML;
+    })
+    return engineersHTML;
+}
+// Generate the "Interns" section of the HTML using the "interns" array
+const generateInternsHTML = (array) => {
+    let internsHTML = '';
+    array.forEach(element => {
+        const generatedHTML = generateIntern(element);
+        internsHTML += generatedHTML;
+    })
+    return internsHTML;
+}
+// Generates the HTML page and returns it - executes each module generator, return it in a variable, then call the generateMainPage to generate the main page passing modules as arguments
+const generateHTML = () => {
+    const managersModule = generateManagersHTML(managers);
+    const engineersModule = generateEngineersHTML(engineers);
+    const internsModule = generateInternsHTML(interns);
+    return generateMainPage(managersModule, engineersModule, internsModule);
+}
+
+
 
 // Welcome message at the beginning of the application
 const welcome = async () => {
@@ -265,31 +276,20 @@ const createIntern = async () => {
     await choice();
 }
 
-const generateHTML = () => {
-    const managersModule = generateManagersHTML(managers);
-    const engineersModule = generateEngineersHTML(engineers);
-    const internsModule = generateInternsHTML(interns);
-    const htmlPage = generateMainPage(managersModule, engineersModule, internsModule);
-    return htmlPage;
-}
-
-
-
-
-
-
+// Initializer Function
 const init = async () => {
     await welcome();
     await createManager();
     await choice();
-    generateHTML();
-
+    const html = generateHTML();
+    fs.writeFile('./dist/index.html', html, (err) => {
+        if (err) {
+            console.log(err)
+        } else {
+            console.log('./dist/index.html file created sucessfully! Thank you!')
+        }
+    })
 }
-
-
-
-
-
 
 // Initiates the app
 init();
