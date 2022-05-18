@@ -190,7 +190,6 @@ const choice = async () => {
         console.log("\nLet's create that Intern!");
         await createIntern();
     }
-    // await setTimeoutPromise(2_000);
 }
 
 // Function to create the engineer object and store in "engineers" array
@@ -283,7 +282,7 @@ const init = async () => {
         if (err) {
             console.log(err)
         } else {
-            console.log('./dist/index.html file created sucessfully! Thank you!')
+            console.log("\nCongrats! The webpage was sucessfully created! You'll find the file in this path: ./dist/index.html! Thank you!")
         }
     })
 }
