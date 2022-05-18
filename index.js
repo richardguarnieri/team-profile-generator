@@ -13,6 +13,11 @@ const Intern = require('./lib/Intern');
 // Import HTML Template and Generators
 const generateManager = require('./src/generateManager');
 
+
+
+let managerHTML;
+
+
 // Manager questions to user during inquirer.prompt()
 const questionsManager = [
     "Question #1 - Please enter the manager's name:",
@@ -104,11 +109,13 @@ const createManager = async () => {
         },
     ])
     const { name, id, email, officeNumber } = managerResult;
-    const manager = new Manager(name, id, email, officeNumber); 
+    const manager = new Manager(name, id, email, officeNumber);
+    managerHTML += generateManager(manager);
     managers.push(manager)
     await setTimeoutPromise(2_000);
     console.log(`\nGreat work! The manager "${manager.name}" has been created! You now have ${managers.length} manager(s)!\n`);
     console.log(managers)
+    console.log(managerHTML)
 }
 
 // Function to select whether the user wants to create engineers / interns or quit the app
