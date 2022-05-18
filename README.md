@@ -94,7 +94,7 @@ Project Description: `Team Profile Generator via Node.js and HTML`
 <!-- The Project -->
 ## The Project
 
-[![Application Image][application-image]][application-url]
+![Application Image][application-image]
 
 This is a Node.js command-line application that takes in information about employees, then generates an HTML webpage that displays summaries for each person. 
 
@@ -242,7 +242,18 @@ Richard Guarnieri: richard.gm@outlook.com · LinkedIn: [rguarnieri][linkedin-url
 
 <!-- Tests -->
 ## Tests
-Feel free to go the extra mile and write tests for your application. Then provide examples on how to run them here.
+As this program was built using TDD, we can use the [jest](https://jestjs.io/) NPM package to test our code. The repo includes one **test/** directory and four test files, one for each of the classes (Employee, Manager, Engineer and Intern).
+
+To run the tests, simply type in the CLI the following command:
+```shell
+npm test
+```
+
+This is a script that will execute **jest**, which will look for and run all files under the **.test** extension. As you can see in below images, all tests are passed.
+
+Feel free to experiment with the test files directly.
+
+![Jest Test](./img/jest-test.png)
 
 <p align="right"> - <a href="#home">Return to Home</a></p>
 
