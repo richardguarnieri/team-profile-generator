@@ -41,7 +41,9 @@ return `
                         <p class="font-bold">Managers</p>
                     </div>
                     <!-- Manager Profiles -->
+                    <div id="managers" class="flex flex-wrap justify-around my-5 lg:space-x-3 lg:border-l lg:pl-10">
                     ${managersModule}
+                    </div>
                 </div>
                 <!-- Engineer Section -->
                 <div class="flex flex-col lg:flex-row lg:items-center">
@@ -50,7 +52,9 @@ return `
                         <p class="font-bold">Engineers</p>
                     </div>
                     <!-- Engineer Profiles -->
+                    <div id="engineers" class="flex flex-wrap justify-around my-5 lg:space-x-3 lg:border-l lg:pl-10">
                     ${engineersModule}
+                    </div>
                 </div>
                 <!-- Intern Section -->
                 <div class="flex flex-col lg:flex-row lg:items-center">
@@ -59,7 +63,9 @@ return `
                         <p class="font-bold">Interns<span class="hidden lg:inline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
                     </div>
                     <!-- Intern Profiles -->
+                    <div id="interns" class="flex flex-wrap justify-around my-5 lg:space-x-3 lg:border-l lg:pl-10">
                     ${internsModule}
+                    </div>
                 </div>
 
             </div>

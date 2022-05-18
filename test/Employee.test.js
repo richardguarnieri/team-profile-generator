@@ -44,7 +44,7 @@ describe('Employee', () => {
             it("Should throw an error if not provided a 'number' value", () => {
                 // Arrange
                 const cb = () => new Employee('richard', '31', '@example.com')
-                const err = new Error("Expected parameter 'age' to be a non-negative number");
+                const err = new Error("Expected parameter 'id' to be a non-negative number");
                 // Assert
                 expect(cb).toThrowError(err);
             });
@@ -52,7 +52,7 @@ describe('Employee', () => {
             it("Should throw an error if provided a negative 'number' value", () => {
                 // Arrange
                 const cb = () => new Employee('richard', -31, '@example.com')
-                const err = new Error("Expected parameter 'age' to be a non-negative number");
+                const err = new Error("Expected parameter 'id' to be a non-negative number");
                 // Assert
                 expect(cb).toThrowError(err);
             });

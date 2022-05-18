@@ -159,7 +159,6 @@ const createManager = async () => {
     const manager = new Manager(name, Number(id), email, officeNumber); 
     // Push new newly created manager to managers array
     managers.push(manager)
-    await setTimeoutPromise(2_000);
     console.log(`\nGreat work! The manager "${manager.name}" has been created! You now have ${managers.length} manager(s)!\n`);
     // console.log(managers)
     // console.log(managerHTML)
@@ -191,7 +190,7 @@ const choice = async () => {
         console.log("\nLet's create that Intern!");
         await createIntern();
     }
-    await setTimeoutPromise(2_000);
+    // await setTimeoutPromise(2_000);
 }
 
 // Function to create the engineer object and store in "engineers" array
@@ -228,7 +227,6 @@ const createEngineer = async () => {
     const engineer = new Engineer(name, Number(id), email, github);
     // Push new newly created engineer to engineers array
     engineers.push(engineer)
-    await setTimeoutPromise(2_000);
     console.log(`\nGreat work! The engineer "${engineer.name}" has been created! You now have ${engineers.length} engineer(s)!\n`);
     // console.log(engineers)
     // console.log(engineerHTML)
@@ -269,7 +267,6 @@ const createIntern = async () => {
     const intern = new Intern(name, Number(id), email, school);
     // Push new newly created intern to interns array
     interns.push(intern)
-    await setTimeoutPromise(2_000);
     console.log(`\nGreat work! The intern "${intern.name}" has been created! You now have ${interns.length} intern(s)!\n`);
     // console.log(interns)
     // console.log(internHTML)

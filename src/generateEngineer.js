@@ -1,6 +1,6 @@
 const generateEngineer = ({ name, id, email, github }) => {
 return `
-<div class="m-1 group flex flex-col justify-between border rounded-md transition hover:border-blue-500">
+<div class="min-w-[16rem] m-1 group flex flex-col justify-between border rounded-md transition hover:border-blue-500">
     <div class="flex flex-col justify-center items-center p-3">
         <p class="text-xl font-medium">${name}</p>
         <div class="relative flex">
