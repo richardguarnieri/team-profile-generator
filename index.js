@@ -38,7 +38,7 @@ const questionsIntern = [
     "Question #4 - Please enter the intern's school:",
 ];
 
-// Choices during Engineer / Intern creating during inquirer.prompt()
+// Choices to select between Engineer, Intern or quit program during inquirer.prompt()
 const choices = [
     "1) Create an Engineer",
     "2) Create an Intern",
@@ -47,7 +47,7 @@ const choices = [
 
 // Utility Validation Functions
 // "String" validation: checks whether the input is a "non-empty string"
-const stringValidation = (answer) => {
+const stringValidationFn = (answer) => {
     if (!isNaN(Number(answer)) || answer.trim().length === 0) {
         console.log('\nPlease enter a non-empty text')
         return false
@@ -57,7 +57,7 @@ const stringValidation = (answer) => {
 };
 
 // "Number" validation: checks whether the input is a "non-negative number"
-const numberValidation = (answer) => {
+const numberValidationFn = (answer) => {
     if (isNaN(Number(answer)) || Number(answer) < 0) {
         console.log('\nPlease enter a non-negative number')
         return false
@@ -73,7 +73,7 @@ let interns = [];
 
 // HTML Generator Functions
 // Generate the "Managers" section of the HTML using the "managers" array
-const generateManagersHTML = (array) => {
+const generateManagersHTMLFn = (array) => {
     let managersHTML = '';
     array.forEach(element => {
         const generatedHTML = generateManager(element);
@@ -82,7 +82,7 @@ const generateManagersHTML = (array) => {
     return managersHTML;
 }
 // Generate the "Engineers" section of the HTML using the "engineers" array
-const generateEngineersHTML = (array) => {
+const generateEngineersHTMLFn = (array) => {
     let engineersHTML = '';
     array.forEach(element => {
         const generatedHTML = generateEngineer(element);
@@ -91,7 +91,7 @@ const generateEngineersHTML = (array) => {
     return engineersHTML;
 }
 // Generate the "Interns" section of the HTML using the "interns" array
-const generateInternsHTML = (array) => {
+const generateInternsHTMLFn = (array) => {
     let internsHTML = '';
     array.forEach(element => {
         const generatedHTML = generateIntern(element);
@@ -100,17 +100,17 @@ const generateInternsHTML = (array) => {
     return internsHTML;
 }
 // Generates the HTML page and returns it - executes each module generator, return it in a variable, then call the generateMainPage to generate the main page passing modules as arguments
-const generateHTML = () => {
-    const managersModule = generateManagersHTML(managers);
-    const engineersModule = generateEngineersHTML(engineers);
-    const internsModule = generateInternsHTML(interns);
+const generateHTMLFn = () => {
+    const managersModule = generateManagersHTMLFn(managers);
+    const engineersModule = generateEngineersHTMLFn(engineers);
+    const internsModule = generateInternsHTMLFn(interns);
     return generateMainPage(managersModule, engineersModule, internsModule);
 }
 
 
 
 // Welcome message at the beginning of the application
-const welcome = async () => {
+const welcomeFn = async () => {
     console.log('--------------------------------------------------')
     console.log('              Team Profile Generator              ')
     console.log('--------------------------------------------------')
@@ -126,31 +126,31 @@ const welcome = async () => {
 };
 
 // Function to create the manager object and store in "managers" array
-const createManager = async () => {
+const createManagerFn = async () => {
     const managerResult = await inquirer.prompt([
         {
             type: 'input',
             name: 'name',
             message: questionsManager[0],
-            validate: stringValidation
+            validate: stringValidationFn
         },
         {
             type: 'input',
             name: 'id',
             message: questionsManager[1],
-            validate: numberValidation
+            validate: numberValidationFn
         },
         {
             type: 'input',
             name: 'email',
             message: questionsManager[2],
-            validate: stringValidation   
+            validate: stringValidationFn   
         },
         {
             type: 'input',
             name: 'officeNumber',
             message: questionsManager[3],
-            validate: numberValidation
+            validate: numberValidationFn
         },
     ])
     // Object destructuring of "managerResult"
@@ -165,7 +165,7 @@ const createManager = async () => {
 }
 
 // Function to select whether the user wants to create engineers / interns or quit the app
-const choice = async () => {
+const choiceFn = async () => {
     await setTimeoutPromise(2_000);
     console.log("Please continue building your team! Select either an Engineer or an Intern (or quit if you don't want to add anyone else!):\n")
     await setTimeoutPromise(2_000);
@@ -175,7 +175,7 @@ const choice = async () => {
             name: 'choice',
             message: "Where do you want to go now?",
             choices: choices,
-            validate: stringValidation
+            validate: stringValidationFn
         },
     ])
     console.log(`\nYou chose ${choiceResult.choice}!`);
@@ -185,39 +185,39 @@ const choice = async () => {
         return
     } else if (choiceResult.choice === choices[0]) {
         console.log("\nLet's create that Engineer!");
-        await createEngineer();        
+        await createEngineerFn();        
     } else {
         console.log("\nLet's create that Intern!");
-        await createIntern();
+        await createInternFn();
     }
 }
 
 // Function to create the engineer object and store in "engineers" array
-const createEngineer = async () => {
+const createEngineerFn = async () => {
     const engineerResult = await inquirer.prompt([
         {
             type: 'input',
             name: 'name',
             message: questionsEngineer[0],
-            validate: stringValidation
+            validate: stringValidationFn
         },
         {
             type: 'input',
             name: 'id',
             message: questionsEngineer[1],
-            validate: numberValidation
+            validate: numberValidationFn
         },
         {
             type: 'input',
             name: 'email',
             message: questionsEngineer[2],
-            validate: stringValidation
+            validate: stringValidationFn
         },
         {
             type: 'input',
             name: 'github',
             message: questionsEngineer[3],
-            validate: stringValidation
+            validate: stringValidationFn
         },
     ])
     // Object destructuring of "engineerResult"
@@ -229,35 +229,35 @@ const createEngineer = async () => {
     console.log(`\nGreat work! The engineer "${engineer.name}" has been created! You now have ${engineers.length} engineer(s)!\n`);
     // console.log(engineers)
     // console.log(engineerHTML)
-    await choice();
+    await choiceFn();
 }
 
 // Function to create the intern object and store in "interns" array
-const createIntern = async () => {
+const createInternFn = async () => {
     const internResult = await inquirer.prompt([
         {
             type: 'input',
             name: 'name',
             message: questionsIntern[0],
-            validate: stringValidation
+            validate: stringValidationFn
         },
         {
             type: 'input',
             name: 'id',
             message: questionsIntern[1],
-            validate: numberValidation
+            validate: numberValidationFn
         },
         {
             type: 'input',
             name: 'email',
             message: questionsIntern[2],
-            validate: stringValidation 
+            validate: stringValidationFn 
         },
         {
             type: 'input',
             name: 'school',
             message: questionsIntern[3],
-            validate: stringValidation
+            validate: stringValidationFn
         },
     ])
     // Object destructuring of "internResult"
@@ -269,15 +269,15 @@ const createIntern = async () => {
     console.log(`\nGreat work! The intern "${intern.name}" has been created! You now have ${interns.length} intern(s)!\n`);
     // console.log(interns)
     // console.log(internHTML)
-    await choice();
+    await choiceFn();
 }
 
 // Initializer Function
 const init = async () => {
-    await welcome();
-    await createManager();
-    await choice();
-    const html = generateHTML();
+    await welcomeFn();
+    await createManagerFn();
+    await choiceFn();
+    const html = generateHTMLFn();
     fs.writeFile('./dist/index.html', html, (err) => {
         if (err) {
             console.log(err)
