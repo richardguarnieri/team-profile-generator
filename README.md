@@ -16,7 +16,7 @@ Project Description: `Team Profile Generator via Node.js and HTML`
 
 <!-- Please also update the following links -->
 [logo]: ./img/logo.png
-[application-image]: ./img/app-image.webp
+[application-image]: ./img/app-image.png
 [application-url]: https://example.com/
 
 <div id="home"><div> 

@@ -150,13 +150,13 @@ const createManager = async () => {
             type: 'input',
             name: 'officeNumber',
             message: questionsManager[3],
-            validate: stringValidation
+            validate: numberValidation
         },
     ])
     // Object destructuring of "managerResult"
     const { name, id, email, officeNumber } = managerResult;
     // Create new instance of Manager using destructured variables - Number(id) is to parse the string 'id' value to a number to avoid validation issues during instance creation as every output of inquirer are strings
-    const manager = new Manager(name, Number(id), email, officeNumber); 
+    const manager = new Manager(name, Number(id), email, Number(officeNumber)); 
     // Push new newly created manager to managers array
     managers.push(manager)
     console.log(`\nGreat work! The manager "${manager.name}" has been created! You now have ${managers.length} manager(s)!\n`);
