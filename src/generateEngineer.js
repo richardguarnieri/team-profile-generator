@@ -21,7 +21,7 @@ return `
         </div>
         <div class="flex justify-between space-x-5">
             <p>GitHub:</p>
-            <a href="https://github.com/${github}" class="hover:text-yellow-300">${github}</a>
+            <a href="https://github.com/${github}" target="_blank" class="hover:text-yellow-300">${github}</a>
         </div>    
     </div>
 </div>
