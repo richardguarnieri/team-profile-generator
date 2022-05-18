@@ -1,9 +1,8 @@
+// Import Dependencies
 // Import setTimeout from Node.js
 const { setTimeout: setTimeoutPromise } = require('timers/promises');
-
 // Import Inquirer NPM
 const inquirer = require('inquirer');
-
 // Import Classes
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
@@ -45,17 +44,45 @@ let managers = [];
 let engineers = [];
 let interns = [];
 
-// Import HTML Template and Generators
+// Import HTML Generators for Manager, Engineer and Intern
 const generateManager = require('./src/generateManager');
 const generateEngineer = require('./src/generateEngineer');
 const generateIntern = require('./src/generateIntern');
+
+const generateManagersHTML = (array) => {
+    let managersHTML = '';
+    array.forEach(element => {
+        const generatedHTML = generateManager(element);
+        managersHTML += generatedHTML;
+    })
+    return managersHTML;
+}
+
+const generateEngineersHTML = (array) => {
+    let engineersHTML = '';
+    array.forEach(element => {
+        const generatedHTML = generateEngineer(element);
+        engineersHTML += generatedHTML;
+    })
+    return engineersHTML;
+}
+const generateInternsHTML = (array) => {
+    let internsHTML = '';
+    array.forEach(element => {
+        const generatedHTML = generateIntern(element);
+        internsHTML += generatedHTML;
+    })
+    return internsHTML;
+}
 
 // Empty arrays to store the generated HTML for each manager / engineer / intern function - will be accessed to create the HTML page
 let managerHTML = [];
 let engineerHTML = [];
 let internHTML = [];
 
-// Utility Validation Function: checks whether the input is a "non-empty string"
+
+// Utility Validation Functions
+// "String" validation: checks whether the input is a "non-empty string"
 const stringValidation = (answer) => {
     if (!isNaN(Number(answer)) || answer.trim().length === 0) {
         console.log('\nPlease enter a non-empty text')
@@ -64,7 +91,8 @@ const stringValidation = (answer) => {
         return true
     }
 };
-// Utility Validation Function: checks whether the input is a "non-negative number"
+
+// "Number" validation: checks whether the input is a "non-negative number"
 const numberValidation = (answer) => {
     if (isNaN(Number(answer)) || Number(answer) < 0) {
         console.log('\nPlease enter a non-negative number')
@@ -120,7 +148,7 @@ const createManager = async () => {
     ])
     // Object destructuring of "managerResult"
     const { name, id, email, officeNumber } = managerResult;
-    // Create new instance of Manager using destructured variables - Number(id) is to parse the string 'id' value to a number to avoid validation during instance creation
+    // Create new instance of Manager using destructured variables - Number(id) is to parse the string 'id' value to a number to avoid validation issues during instance creation as every output of inquirer are strings
     const manager = new Manager(name, Number(id), email, officeNumber);
     // Generates HTML for this object
     managerHTML += generateManager(manager);  
@@ -153,10 +181,10 @@ const choice = async () => {
         return
     } else if (choiceResult.choice === choices[0]) {
         console.log("\nLet's create that Engineer!");
-        createEngineer();        
+        await createEngineer();        
     } else {
         console.log("\nLet's create that Intern!");
-        createIntern();
+        await createIntern();
     }
     await setTimeoutPromise(2_000);
 }
@@ -191,7 +219,7 @@ const createEngineer = async () => {
     ])
     // Object destructuring of "engineerResult"
     const { name, id, email, github } = engineerResult;
-    // Create new instance of Engineer using destructured variables - Number(id) is to parse the string 'id' value to a number to avoid validation during instance creation
+    // Create new instance of Engineer using destructured variables - Number(id) is to parse the string 'id' value to a number to avoid validation issues during instance creation as every output of inquirer are strings
     const engineer = new Engineer(name, Number(id), email, github);
     // Generates HTML for this object
     engineerHTML += generateEngineer(engineer);  
@@ -201,7 +229,7 @@ const createEngineer = async () => {
     console.log(`\nGreat work! The engineer "${engineer.name}" has been created! You now have ${engineers.length} engineer(s)!\n`);
     // console.log(engineers)
     // console.log(engineerHTML)
-    choice();
+    await choice();
 }
 
 // Function to create the intern object and store in "interns" array
@@ -234,7 +262,7 @@ const createIntern = async () => {
     ])
     // Object destructuring of "internResult"
     const { name, id, email, school } = internResult;
-    // Create new instance of Intern using destructured variables - Number(id) is to parse the string 'id' value to a number to avoid validation during instance creation
+    // Create new instance of Intern using destructured variables - Number(id) is to parse the string 'id' value to a number to avoid validation issues during instance creation as every output of inquirer are strings
     const intern = new Intern(name, Number(id), email, school);
     // Generates HTML for this object
     internHTML += generateIntern(intern);  
@@ -244,10 +272,14 @@ const createIntern = async () => {
     console.log(`\nGreat work! The intern "${intern.name}" has been created! You now have ${interns.length} intern(s)!\n`);
     // console.log(interns)
     // console.log(internHTML)
-    choice();
+    await choice();
 }
 
-
+const generateHTML = () => {
+    console.log(generateManagersHTML(managers));
+    console.log(generateEngineersHTML(engineers));
+    
+}
 
 
 
@@ -258,6 +290,8 @@ const init = async () => {
     await welcome();
     await createManager();
     await choice();
+    generateHTML();
+
 }
 
 
