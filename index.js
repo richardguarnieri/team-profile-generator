@@ -114,15 +114,15 @@ const welcome = async () => {
     console.log('--------------------------------------------------')
     console.log('              Team Profile Generator              ')
     console.log('--------------------------------------------------')
-    // await setTimeoutPromise(3_000);
+    await setTimeoutPromise(2_000);
     console.log("In this application you'll be able to create a HTML webpage that displays summaries for each team member.");
-    // await setTimeoutPromise(5_000);
-    console.log("You will first enter the manager's information (name, id, email and office number). Once this is done, you will be asked to input the rest of the team");
-    // await setTimeoutPromise(8_000);
+    await setTimeoutPromise(3_000);
+    console.log("You will first enter the manager's information (name, id, email and office number). Once this is done, you will be asked to input the rest of the team.");
+    await setTimeoutPromise(5_000);
     console.log("Enjoy building the team!\n");
-    // await setTimeoutPromise(5_000);
+    await setTimeoutPromise(2_000);
     console.log("Let's start with the manager...")
-    // await setTimeoutPromise(3_000);
+    await setTimeoutPromise(1_000);
 };
 
 // Function to create the manager object and store in "managers" array
@@ -168,7 +168,7 @@ const createManager = async () => {
 const choice = async () => {
     await setTimeoutPromise(2_000);
     console.log("Please continue building your team! Select either an Engineer or an Intern (or quit if you don't want to add anyone else!):\n")
-    await setTimeoutPromise(3_000);
+    await setTimeoutPromise(2_000);
     const choiceResult = await inquirer.prompt([
         {
             type: 'list',
