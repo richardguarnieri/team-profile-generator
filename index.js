@@ -12,10 +12,13 @@ const Intern = require('./lib/Intern');
 
 // Import HTML Template and Generators
 const generateManager = require('./src/generateManager');
+const generateEngineer = require('./src/generateEngineer');
+
 
 
 
 let managerHTML;
+let engineerHTML;
 
 
 // Manager questions to user during inquirer.prompt()
@@ -54,10 +57,19 @@ let managers = [];
 let engineers = [];
 let interns = [];
 
-// Utility Validation Function: checks whether the input is a "string"
+// Utility Validation Function: checks whether the input is a "non-empty string"
 const stringValidation = (answer) => {
     if (!isNaN(Number(answer)) || answer.trim().length === 0) {
         console.log('\nPlease enter a non-empty text')
+        return false
+    } else {
+        return true
+    }
+};
+// Utility Validation Function: checks whether the input is a "non-negative number"
+const numberValidation = (answer) => {
+    if (isNaN(Number(answer)) || Number(answer) < 0) {
+        console.log('\nPlease enter a non-negative number')
         return false
     } else {
         return true
@@ -93,7 +105,7 @@ const createManager = async () => {
             type: 'input',
             name: 'id',
             message: questionsManager[1],
-            validate: stringValidation
+            validate: numberValidation
         },
         {
             type: 'input',
@@ -109,8 +121,13 @@ const createManager = async () => {
         },
     ])
     const { name, id, email, officeNumber } = managerResult;
-    const manager = new Manager(name, id, email, officeNumber);
-    managerHTML += generateManager(manager);
+    const manager = new Manager(name, Number(id), email, officeNumber);
+    // Checks if managerHTML is nullish (null or undefined)
+    if (managerHTML) {
+        managerHTML += generateManager(manager);  
+    } else {
+        managerHTML = generateManager(manager);
+    }
     managers.push(manager)
     await setTimeoutPromise(2_000);
     console.log(`\nGreat work! The manager "${manager.name}" has been created! You now have ${managers.length} manager(s)!\n`);
@@ -152,33 +169,42 @@ const createEngineer = async () => {
     const engineerResult = await inquirer.prompt([
         {
             type: 'input',
-            name: 'engineerName',
+            name: 'name',
             message: questionsEngineer[0],
             validate: stringValidation
         },
         {
             type: 'input',
-            name: 'engineerId',
+            name: 'id',
             message: questionsEngineer[1],
-            validate: stringValidation
+            validate: numberValidation
         },
         {
             type: 'input',
-            name: 'engineerEmail',
+            name: 'email',
             message: questionsEngineer[2],
             validate: stringValidation
         },
         {
             type: 'input',
-            name: 'engineerGithub',
+            name: 'github',
             message: questionsEngineer[3],
             validate: stringValidation
         },
     ])
+    const { name, id, email, github } = engineerResult;
+    const engineer = new Engineer(name, Number(id), email, github);
+    // Checks if engineerHTML is nullish (null or undefined)
+    if (engineerHTML) {
+        engineerHTML += generateEngineer(engineer);  
+    } else {
+        engineerHTML = generateEngineer(engineer);
+    }
+    engineers.push(engineer)
     await setTimeoutPromise(2_000);
-    engineers.push(engineerResult);
     console.log(`\nGreat work! The engineer "${engineerResult.engineerName}" has been created! You now have ${engineers.length} engineer(s)!\n`);
     console.log(engineers)
+    console.log(engineerHTML)
     choice();
 }
 
@@ -195,7 +221,7 @@ const createIntern = async () => {
             type: 'input',
             name: 'internId',
             message: questionsIntern[1],
-            validate: stringValidation
+            validate: numberValidation
         },
         {
             type: 'input',
