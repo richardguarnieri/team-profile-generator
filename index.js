@@ -10,32 +10,53 @@ const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 
-const questions = [
+// Manager questions to user during inquirer.prompt()
+const questionsManager = [
     "Question #1 - Please enter the manager's name:",
     "Question #2 - Please enter the manager's employee id:",
     "Question #3 - Please enter the manager's email address:",
     "Question #4 - Please enter the manager's office number:",
-    "Question #5 - Where do you want to go now?",
+];
+
+// Engineer questions to user during inquirer.prompt()
+const questionsEngineer = [
     "Question #1 - Please enter the engineer's name:",
     "Question #2 - Please enter the engineer's employee id:",
     "Question #3 - Please enter the engineer's email address:",
     "Question #4 - Please enter the engineer's GitHub username:",
+];
+
+// Intern questions to user during inquirer.prompt()
+const questionsIntern = [
     "Question #1 - Please enter the intern's name:",
     "Question #2 - Please enter the intern's employee id:",
     "Question #3 - Please enter the intern's email address:",
     "Question #4 - Please enter the intern's school:",
 ];
 
+// Choices during Engineer / Intern creating during inquirer.prompt()
 const choices = [
     "1) Create an Engineer",
     "2) Create an Intern",
     "3) I'm done! don't want to add anyone else!"
 ];
 
-let managers = 0;
-let engineers = 0;
-let interns = 0;
+// Empty arrays to store objects from each manager / engineer / intern function - will be accessed to create the HTML page
+let managers = [];
+let engineers = [];
+let interns = [];
 
+// Utility Validation Function: checks whether the input is a "string"
+const stringValidation = (answer) => {
+    if (!isNaN(Number(answer)) || answer.trim().length === 0) {
+        console.log('\nPlease enter a non-empty text')
+        return false
+    } else {
+        return true
+    }
+};
+
+// Welcome message at the beginning of the application
 const welcome = async () => {
     console.log('--------------------------------------------------')
     console.log('              Team Profile Generator              ')
@@ -51,92 +72,58 @@ const welcome = async () => {
     // await setTimeoutPromise(3_000);
 };
 
+// Function to create the manager object and store in "managers" array
 const createManager = async () => {
     const managerResult = await inquirer.prompt([
         {
             type: 'input',
             name: 'managerName',
-            message: questions[0],
-            validate(answer) {
-                if (!isNaN(Number(answer)) || answer.trim().length === 0) {
-                    console.log('\nPlease enter a non-empty text')
-                    return false
-                } else {
-                    return true
-                }
-            }
+            message: questionsManager[0],
+            validate: stringValidation
         },
         {
             type: 'input',
             name: 'managerId',
-            message: questions[1],
-            validate(answer) {
-                if (!isNaN(Number(answer)) || answer.trim().length === 0) {
-                    console.log('\nPlease enter a non-empty text')
-                    return false
-                } else {
-                    return true
-                }
-            }   
+            message: questionsManager[1],
+            validate: stringValidation
         },
         {
             type: 'input',
             name: 'managerEmail',
-            message: questions[2],
-            validate(answer) {
-                if (!isNaN(Number(answer)) || answer.trim().length === 0) {
-                    console.log('\nPlease enter a non-empty text')
-                    return false
-                } else {
-                    return true
-                }
-            }   
+            message: questionsManager[2],
+            validate: stringValidation   
         },
         {
             type: 'input',
             name: 'managerNumber',
-            message: questions[3],
-            validate(answer) {
-                if (!isNaN(Number(answer)) || answer.trim().length === 0) {
-                    console.log('\nPlease enter a non-empty text')
-                    return false
-                } else {
-                    return true
-                }
-            }   
+            message: questionsManager[3],
+            validate: stringValidation
         },
     ])
     await setTimeoutPromise(2_000);
-    console.log(`\nGreat work! The manager ${managerResult.managerName} has been created!\n`);
-    managers += 1;
-    await choice();
-    // console.log(managerResult)
+    managers.push(managerResult)
+    console.log(`\nGreat work! The manager "${managerResult.managerName}" has been created! You now have ${managers.length} manager(s)!\n`);
+    console.log(managers)
 }
 
+// Function to select whether the user wants to create engineers / interns or quit the app
 const choice = async () => {
-    await setTimeoutPromise(3_000);
+    await setTimeoutPromise(2_000);
     console.log("Please continue building your team! Select either an Engineer or an Intern (or quit if you don't want to add anyone else!):\n")
     await setTimeoutPromise(3_000);
     const choiceResult = await inquirer.prompt([
         {
             type: 'list',
             name: 'choice',
-            message: questions[4],
+            message: "Where do you want to go now?",
             choices: choices,
-            validate(answer) {
-                if (!isNaN(Number(answer)) || answer.trim().length === 0) {
-                    console.log('\nPlease enter a non-empty text')
-                    return false
-                } else {
-                    return true
-                }
-            }
+            validate: stringValidation
         },
     ])
     console.log(`\nYou chose ${choiceResult.choice}!`);
-    await setTimeoutPromise(3_000);
+    await setTimeoutPromise(2_000);
     if (choiceResult.choice === choices[2]) {
-        console.log(`\nThank you for building the team! The team consists of ${managers + engineers + interns} employees!`);
+        console.log(`\nThank you for building the team! The team consists of ${managers.length + engineers.length + interns.length} employees!`);
         return
     } else if (choiceResult.choice === choices[0]) {
         console.log("\nLet's create that Engineer!");
@@ -145,77 +132,96 @@ const choice = async () => {
         console.log("\nLet's create that Intern!");
         createIntern();
     }
-    await setTimeoutPromise(3_000);
+    await setTimeoutPromise(2_000);
 }
 
+// Function to create the engineer object and store in "engineers" array
 const createEngineer = async () => {
     const engineerResult = await inquirer.prompt([
         {
             type: 'input',
             name: 'engineerName',
-            message: questions[5],
-            validate(answer) {
-                if (!isNaN(Number(answer)) || answer.trim().length === 0) {
-                    console.log('\nPlease enter a non-empty text')
-                    return false
-                } else {
-                    return true
-                }
-            }
+            message: questionsEngineer[0],
+            validate: stringValidation
         },
         {
             type: 'input',
             name: 'engineerId',
-            message: questions[6],
-            validate(answer) {
-                if (!isNaN(Number(answer)) || answer.trim().length === 0) {
-                    console.log('\nPlease enter a non-empty text')
-                    return false
-                } else {
-                    return true
-                }
-            }   
+            message: questionsEngineer[1],
+            validate: stringValidation
         },
         {
             type: 'input',
             name: 'engineerEmail',
-            message: questions[7],
-            validate(answer) {
-                if (!isNaN(Number(answer)) || answer.trim().length === 0) {
-                    console.log('\nPlease enter a non-empty text')
-                    return false
-                } else {
-                    return true
-                }
-            }   
+            message: questionsEngineer[2],
+            validate: stringValidation
         },
         {
             type: 'input',
             name: 'engineerGithub',
-            message: questions[8],
-            validate(answer) {
-                if (!isNaN(Number(answer)) || answer.trim().length === 0) {
-                    console.log('\nPlease enter a non-empty text')
-                    return false
-                } else {
-                    return true
-                }
-            }   
+            message: questionsEngineer[3],
+            validate: stringValidation
         },
     ])
     await setTimeoutPromise(2_000);
-    console.log(`\nGreat work! The engineer ${engineerResult.engineerName} has been created!\n`);
-    engineers += 1;
+    engineers.push(engineerResult);
+    console.log(`\nGreat work! The engineer "${engineerResult.engineerName}" has been created! You now have ${engineers.length} engineer(s)!\n`);
+    console.log(engineers)
     choice();
-
 }
+
+// Function to create the intern object and store in "interns" array
+const createIntern = async () => {
+    const internResult = await inquirer.prompt([
+        {
+            type: 'input',
+            name: 'internName',
+            message: questionsIntern[0],
+            validate: stringValidation
+        },
+        {
+            type: 'input',
+            name: 'internId',
+            message: questionsIntern[1],
+            validate: stringValidation
+        },
+        {
+            type: 'input',
+            name: 'internEmail',
+            message: questionsIntern[2],
+            validate: stringValidation 
+        },
+        {
+            type: 'input',
+            name: 'internGithub',
+            message: questionsIntern[3],
+            validate: stringValidation
+        },
+    ])
+    await setTimeoutPromise(2_000);
+    interns.push(internResult);
+    console.log(`\nGreat work! The intern "${internResult.internName}" has been created! You now have ${interns.length} intern(s)!\n`);
+    console.log(interns)
+    choice();
+}
+
+
+
+
+
+
+
 
 const init = async () => {
     await welcome();
     await createManager();
-    
-
+    await choice();
 }
 
 
+
+
+
+
+// Initiates the app
 init();
