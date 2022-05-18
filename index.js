@@ -10,6 +10,9 @@ const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 
+// Import HTML Template and Generators
+const generateManager = require('./src/generateManager');
+
 // Manager questions to user during inquirer.prompt()
 const questionsManager = [
     "Question #1 - Please enter the manager's name:",
@@ -77,32 +80,34 @@ const createManager = async () => {
     const managerResult = await inquirer.prompt([
         {
             type: 'input',
-            name: 'managerName',
+            name: 'name',
             message: questionsManager[0],
             validate: stringValidation
         },
         {
             type: 'input',
-            name: 'managerId',
+            name: 'id',
             message: questionsManager[1],
             validate: stringValidation
         },
         {
             type: 'input',
-            name: 'managerEmail',
+            name: 'email',
             message: questionsManager[2],
             validate: stringValidation   
         },
         {
             type: 'input',
-            name: 'managerNumber',
+            name: 'officeNumber',
             message: questionsManager[3],
             validate: stringValidation
         },
     ])
+    const { name, id, email, officeNumber } = managerResult;
+    const manager = new Manager(name, id, email, officeNumber); 
+    managers.push(manager)
     await setTimeoutPromise(2_000);
-    managers.push(managerResult)
-    console.log(`\nGreat work! The manager "${managerResult.managerName}" has been created! You now have ${managers.length} manager(s)!\n`);
+    console.log(`\nGreat work! The manager "${manager.name}" has been created! You now have ${managers.length} manager(s)!\n`);
     console.log(managers)
 }
 
