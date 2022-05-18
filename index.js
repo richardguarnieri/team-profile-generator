@@ -1,6 +1,7 @@
 // Import Dependencies
-// Import setTimeout from Node.js
+// Import setTimeout and File System from Node.js 
 const { setTimeout: setTimeoutPromise } = require('timers/promises');
+const fs = require('fs');
 // Import Inquirer NPM
 const inquirer = require('inquirer');
 // Import Classes
@@ -39,12 +40,13 @@ const choices = [
     "3) I'm done! don't want to add anyone else!"
 ];
 
-// Empty arrays to store objects from each manager / engineer / intern function - keeps count of # of employees
+// Empty arrays to store objects from each manager / engineer / intern function - keeps count of # of employees and will be accessed to create the modular HTML segments
 let managers = [];
 let engineers = [];
 let interns = [];
 
-// Import HTML Generators for Manager, Engineer and Intern
+// Import HTML Generators for Main Page, Manager, Engineer and Intern
+const generateMainPage = require('./src/generateMainPage');
 const generateManager = require('./src/generateManager');
 const generateEngineer = require('./src/generateEngineer');
 const generateIntern = require('./src/generateIntern');
@@ -74,12 +76,6 @@ const generateInternsHTML = (array) => {
     })
     return internsHTML;
 }
-
-// Empty arrays to store the generated HTML for each manager / engineer / intern function - will be accessed to create the HTML page
-let managerHTML = [];
-let engineerHTML = [];
-let internHTML = [];
-
 
 // Utility Validation Functions
 // "String" validation: checks whether the input is a "non-empty string"
@@ -149,10 +145,8 @@ const createManager = async () => {
     // Object destructuring of "managerResult"
     const { name, id, email, officeNumber } = managerResult;
     // Create new instance of Manager using destructured variables - Number(id) is to parse the string 'id' value to a number to avoid validation issues during instance creation as every output of inquirer are strings
-    const manager = new Manager(name, Number(id), email, officeNumber);
-    // Generates HTML for this object
-    managerHTML += generateManager(manager);  
-    // Push new Object to managers array
+    const manager = new Manager(name, Number(id), email, officeNumber); 
+    // Push new newly created manager to managers array
     managers.push(manager)
     await setTimeoutPromise(2_000);
     console.log(`\nGreat work! The manager "${manager.name}" has been created! You now have ${managers.length} manager(s)!\n`);
@@ -221,9 +215,7 @@ const createEngineer = async () => {
     const { name, id, email, github } = engineerResult;
     // Create new instance of Engineer using destructured variables - Number(id) is to parse the string 'id' value to a number to avoid validation issues during instance creation as every output of inquirer are strings
     const engineer = new Engineer(name, Number(id), email, github);
-    // Generates HTML for this object
-    engineerHTML += generateEngineer(engineer);  
-    // Push new Object to managers array
+    // Push new newly created engineer to engineers array
     engineers.push(engineer)
     await setTimeoutPromise(2_000);
     console.log(`\nGreat work! The engineer "${engineer.name}" has been created! You now have ${engineers.length} engineer(s)!\n`);
@@ -264,9 +256,7 @@ const createIntern = async () => {
     const { name, id, email, school } = internResult;
     // Create new instance of Intern using destructured variables - Number(id) is to parse the string 'id' value to a number to avoid validation issues during instance creation as every output of inquirer are strings
     const intern = new Intern(name, Number(id), email, school);
-    // Generates HTML for this object
-    internHTML += generateIntern(intern);  
-    // Push new Object to managers array
+    // Push new newly created intern to interns array
     interns.push(intern)
     await setTimeoutPromise(2_000);
     console.log(`\nGreat work! The intern "${intern.name}" has been created! You now have ${interns.length} intern(s)!\n`);
@@ -276,9 +266,11 @@ const createIntern = async () => {
 }
 
 const generateHTML = () => {
-    console.log(generateManagersHTML(managers));
-    console.log(generateEngineersHTML(engineers));
-    
+    const managersModule = generateManagersHTML(managers);
+    const engineersModule = generateEngineersHTML(engineers);
+    const internsModule = generateInternsHTML(interns);
+    const htmlPage = generateMainPage(managersModule, engineersModule, internsModule);
+    return htmlPage;
 }
 
 

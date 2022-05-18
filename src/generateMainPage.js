@@ -1,4 +1,5 @@
-const templateHTML = `
+const generateMainPage = () => {
+`
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,99 +41,9 @@ const templateHTML = `
                         <p class="font-bold">Managers</p>
                     </div>
                     <!-- Manager Profiles -->
-                    <div id="managers" class="flex flex-wrap justify-around my-5 lg:space-x-3 lg:border-l lg:pl-10">
-                        <!-- Manager Profile #1 -->
-                        <div class="m-1 group flex flex-col justify-between border rounded-md transition hover:border-blue-500">
-                            <div class="flex flex-col justify-center items-center p-3">
-                                <p class="text-xl font-medium">Jared</p>
-                                <div class="relative flex">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="absolute h-6 w-6 -left-8 top-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 11l7-7 7 7M5 19l7-7 7 7" />
-                                    </svg>
-                                    <p class="text-lg">Manager</p>
-                                </div>
-                            </div>
-                            <div class="flex flex-col p-3 bg-slate-500 text-white font-extralight transition group-hover:bg-blue-600">
-                                <div class="flex justify-between space-x-5">
-                                    <p>Employee ID:</p>
-                                    <p>12345</p>
-                                </div>
-                                <div class="flex justify-between space-x-5">
-                                    <p>Email:</p>
-                                    <a href="mailto:example@example.com" class="hover:text-yellow-300">example@example.com</a>
-                                </div>
-                                <div class="flex justify-between space-x-5">
-                                    <p>Office #:</p>
-                                    <p>5511119999</p>
-                                </div>
-                                <div class="flex justify-between space-x-5">
-                                    <p>GitHub:</p>
-                                    <a href="https://github.com/richardguarnieri" class="hover:text-yellow-300">richardguarnieri</a>
-                                </div>    
-                            </div>
-                        </div>
-                        <!-- Manager Profile #2 -->
-                        <div class="m-1 group flex flex-col justify-between border rounded-md transition hover:border-blue-500">
-                            <div class="flex flex-col justify-center items-center p-3">
-                                <p class="text-xl font-medium">Jared</p>
-                                <div class="relative flex">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="absolute h-6 w-6 -left-8 top-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 11l7-7 7 7M5 19l7-7 7 7" />
-                                    </svg>
-                                    <p class="text-lg">Manager</p>
-                                </div>
-                            </div>
-                            <div class="flex flex-col p-3 bg-slate-500 text-white font-extralight transition group-hover:bg-blue-600">
-                                <div class="flex justify-between space-x-5">
-                                    <p>Employee ID:</p>
-                                    <p>12345</p>
-                                </div>
-                                <div class="flex justify-between space-x-5">
-                                    <p>Email:</p>
-                                    <a href="mailto:example@example.com" class="hover:text-yellow-300">example@example.com</a>
-                                </div>
-                                <div class="flex justify-between space-x-5">
-                                    <p>Office #:</p>
-                                    <p>5511119999</p>
-                                </div>
-                                <div class="flex justify-between space-x-5">
-                                    <p>GitHub:</p>
-                                    <a href="https://github.com/richardguarnieri" class="hover:text-yellow-300">richardguarnieri</a>
-                                </div>    
-                            </div>
-                        </div>
-                        <!-- Manager Profile #3 -->
-                        <div class="m-1 group flex flex-col justify-between border rounded-md transition hover:border-blue-500">
-                            <div class="flex flex-col justify-center items-center p-3">
-                                <p class="text-xl font-medium">Jared</p>
-                                <div class="relative flex">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="absolute h-6 w-6 -left-8 top-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 11l7-7 7 7M5 19l7-7 7 7" />
-                                    </svg>
-                                    <p class="text-lg">Manager</p>
-                                </div>
-                            </div>
-                            <div class="flex flex-col p-3 bg-slate-500 text-white font-extralight transition group-hover:bg-blue-600">
-                                <div class="flex justify-between space-x-5">
-                                    <p>Employee ID:</p>
-                                    <p>12345</p>
-                                </div>
-                                <div class="flex justify-between space-x-5">
-                                    <p>Email:</p>
-                                    <a href="mailto:example@example.com" class="hover:text-yellow-300">example@example.com</a>
-                                </div>
-                                <div class="flex justify-between space-x-5">
-                                    <p>Office #:</p>
-                                    <p>5511119999</p>
-                                </div>
-                                <div class="flex justify-between space-x-5">
-                                    <p>GitHub:</p>
-                                    <a href="https://github.com/richardguarnieri" class="hover:text-yellow-300">richardguarnieri</a>
-                                </div>    
-                            </div>
-                        </div>
+                    
 
-                    </div>
+                    
                 </div>
                 <!-- Engineer Section -->
                 <div class="flex flex-col lg:flex-row lg:items-center">
@@ -346,3 +257,6 @@ const templateHTML = `
 </body>
 </html>
 `
+}
+
+module.exports = generateMainPage;
