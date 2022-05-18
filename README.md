@@ -95,6 +95,7 @@ Project Description: `Team Profile Generator via Node.js and HTML`
 ## The Project
 
 ![Application Image][application-image]
+![Application Image Two](./img/app-image-2.png)
 
 This is a Node.js command-line application that takes in information about employees, then generates an HTML webpage that displays summaries for each person. 
 
