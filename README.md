@@ -210,6 +210,10 @@ The intern has four questions, these are:
 
 When you decide on quitting the program or when you finish building the team, an **index.html** file will be generated at /dist folder. Here you will find the generated webpage.
 
+**YouTube Walkthrough Video:**
+
+[![Application Image](./img/video-thumbnail.png)](https://youtu.be/GDBMqFQV7V4)
+
 _For more examples, please refer to the [Documentation][documentation-url]._
 
 <p align="right"> - <a href="#home">Return to Home</a></p>
