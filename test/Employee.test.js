@@ -67,6 +67,7 @@ describe('Employee', () => {
                 // Assert
                 expect(employee.email).toBe(email);
             });
+            // Reserved for email validation
             // // Exception Test # 1
             // it("Should throw an error if not provided a 'number' value", () => {
             //     // Arrange
